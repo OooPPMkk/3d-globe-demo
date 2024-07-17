@@ -2,11 +2,39 @@ body { margin: 0; overflow: hidden; }
 canvas { display: block; }
 #info {
     position: absolute;
-    top: 700px;
-    left: 65%;
-    background: rgba(169, 206, 255, 0.8);
+    top: 70px;
+    left: 5%;
+    color: rgb(206, 206, 206);
+    background: rgba(112, 112, 112, 0.753);
     padding: 10px;
     border-radius: 5px;
+    font-size: 18px;
+}
+
+#landmark-info-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.landmark-info {
+    position: absolute;
+    pointer-events: auto;
+    display: none;
+}
+
+.landmark-info div {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    color: rgb(41, 41, 41);
+    background: rgba(255, 255, 255, 0.747);
+    padding: 5px;
+    border-radius: 3px;
+    font-size: 14px;
 }
 
 .button-container {
@@ -18,8 +46,8 @@ canvas { display: block; }
 }
 
 .control-button {
-    width: 100px;
-    height: 100px;
+    width: 180px;
+    height: 180px;
     border: none;
     cursor: pointer;
     position: absolute;
@@ -27,12 +55,15 @@ canvas { display: block; }
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    transition: background-color 0.3s, transform 0.3s;
+    transition: transform 0.3s;
     background-color: transparent;
+    color: white; /* 设置文字颜色 */
+    font-size: 14px; /* 设置文字大小 */
+    text-align: center; /* 文字居中对齐 */
+    line-height: 50px; /* 使文字垂直居中 */
 }
 
 /* 按钮悬停效果 */
 .control-button:hover {
-    color: rgba(204, 204, 204, 0.8);
-    transform: scale(2.5);
+    transform: scale(1.1);
 }

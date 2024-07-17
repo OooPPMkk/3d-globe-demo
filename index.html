@@ -7,12 +7,13 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="info">欢迎！旋转地球查看景点。</div>
+    <div id="info">旋转地球查看景点</div>
+    <div id="landmark-info-container"></div>
     <div class="button-container">
-        <button id="button1" class="control-button">Button 1</button>
-        <button id="button2" class="control-button">Button 2</button>
-        <button id="button3" class="control-button">Button 3</button>
-        <button id="button4" class="control-button">Button 4</button>
+        <button id="button1" class="control-button" data-offset-x="-700" data-offset-y="-250">游戏模式</button>
+        <button id="button2" class="control-button" data-offset-x="700" data-offset-y="-250">AR模式</button>
+        <button id="button3" class="control-button" data-offset-x="-700" data-offset-y="250">地图模式</button>
+        <button id="button4" class="control-button" data-offset-x="700" data-offset-y="250">创建角色</button>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>

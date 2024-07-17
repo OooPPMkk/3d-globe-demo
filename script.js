@@ -11,7 +11,7 @@ controls.enableZoom = true;
 
 // 设置缩放限制
 controls.minDistance = 7; // 最小缩放距离
-controls.maxDistance = 35; // 最大缩放距离
+controls.maxDistance = 12; // 最大缩放距离
 
 // 取消旋转限制
 controls.enablePan = false; // 禁用平移
@@ -47,7 +47,12 @@ gltfLoader.load('model/forest_house.glb', function (gltf) {
     forestHouse.position.set(5, 1, 0); // 设置模型位置
     forestHouse.scale.set(8, 8, 8); // 调整模型大小
     forestHouse.rotation.y = Math.PI / 1; // 旋转模型
-    landmarks.push({ mesh: forestHouse, info: '一个住着精灵的小房子，位于非洲西北，在这里，精灵们与自然和谐共处，生活在一个充满魔力与爱的世界中。他们的存在让这座小房子变得更加神奇，而这座小房子也成为了非洲草原上一道独特而迷人的风景。。' });
+    landmarks.push({
+        mesh: forestHouse,
+        info: '一个住着精灵的小房子，位于非洲西北，在这里，精灵们与自然和谐共处，生活在一个充满魔力与爱的世界中。他们的存在让这座小房子变得更加神奇，而这座小房子也成为了非洲草原上一道独特而迷人的风景。',
+        position: { top: '40%', left: '20%' },
+        size: { width: '250px', height: '50px' }
+    });
     scene.add(forestHouse);
 }, undefined, function (error) {
     console.error(error);
@@ -60,29 +65,25 @@ gltfLoader.load('model/tiny_house.glb', function (gltf) {
     tinyHouse.rotation.y = Math.PI / 1.1; // 旋转模型
     tinyHouse.rotation.x = Math.PI / 1.8; // 旋转模型
     tinyHouse.rotation.z = Math.PI / 0.29; // 旋转模型
-    landmarks.push({ mesh: tinyHouse, info: '一个温馨的小屋，位于北极附近，虽然寒冷，却充满了家的温暖与宁静。在这里，人们可以远离喧嚣，享受一段静谧的时光，与大自然亲密接触，感受那份纯粹的宁静与美好' });
+    landmarks.push({
+        mesh: tinyHouse,
+        info: '一个温馨的小屋，位于北极附近，虽然寒冷，却充满了家的温暖与宁静。在这里，人们可以远离喧嚣，享受一段静谧的时光，与大自然亲密接触，感受那份纯粹的宁静与美好。',
+        position: { top: '30%', left: '20%' },
+        size: { width: '250px', height: '50px' }
+    });
     scene.add(tinyHouse);
 }, undefined, function (error) {
     console.error(error);
 });
 
-// 更新按钮位置的函数
-function updateButtonPositions() {
-    const distance = camera.position.distanceTo(scene.position);
-
-    // 计算按钮的新位置
-    const maxDistance = controls.maxDistance;
-    const minDistance = controls.minDistance;
-
-    const scale = 1 - (distance - minDistance) / (maxDistance - minDistance);
-
-    // 计算新的偏移量
-    const offset = 250 * scale; // 250 是最大偏移量
-
-    document.getElementById('button1').style.transform = `translate(-50%, calc(-150% - ${offset}px))`;
-    document.getElementById('button2').style.transform = `translate(calc(100% + ${offset}px), -50%)`;
-    document.getElementById('button3').style.transform = `translate(-50%, calc(50% + ${offset}px))`;
-    document.getElementById('button4').style.transform = `translate(calc(-200% - ${offset}px), -50%)`;
+// 初始化按钮位置
+function initButtonPositions() {
+    const buttons = document.querySelectorAll('.control-button');
+    buttons.forEach(button => {
+        const offsetX = parseFloat(button.getAttribute('data-offset-x'));
+        const offsetY = parseFloat(button.getAttribute('data-offset-y'));
+        button.style.transform = `translate(calc(-50% + ${offsetX}px), calc(-50% + ${offsetY}px))`;
+    });
 }
 
 // 渲染函数
@@ -91,7 +92,6 @@ function animate() {
     controls.update();
     renderer.render(scene, camera);
     updateLandmarkInfo();
-    updateButtonPositions();
 }
 
 function updateLandmarkInfo() {
@@ -107,13 +107,35 @@ function updateLandmarkInfo() {
     });
 
     if (closestLandmark && closestDistance < 7) { // 调整检测距离
-        document.getElementById('info').innerHTML = closestLandmark.info;
+        displayLandmarkInfo(closestLandmark);
     } else {
-        document.getElementById('info').innerHTML = '欢迎！旋转地球查看景点。';
+        hideAllLandmarkInfo();
     }
 }
 
+function displayLandmarkInfo(landmark) {
+    hideAllLandmarkInfo();
+    const infoContainer = document.getElementById('landmark-info-container');
+    const infoElement = document.createElement('div');
+    infoElement.className = 'landmark-info';
+    infoElement.style.top = landmark.position.top;
+    infoElement.style.left = landmark.position.left;
+    infoElement.style.width = landmark.size.width;
+    infoElement.style.height = landmark.size.height;
+    infoElement.innerHTML = `
+        <div>${landmark.info}</div>
+    `;
+    infoContainer.appendChild(infoElement);
+    infoElement.style.display = 'block';
+}
+
+function hideAllLandmarkInfo() {
+    const infoContainer = document.getElementById('landmark-info-container');
+    infoContainer.innerHTML = '';
+}
+
 animate();
+initButtonPositions();
 
 // 处理窗口大小调整
 window.addEventListener('resize', () => {
