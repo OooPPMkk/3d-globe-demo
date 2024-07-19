@@ -1,11 +1,12 @@
 body { margin: 0; overflow: hidden; }
 canvas { display: block; }
+
 #info {
     position: absolute;
-    top: 70px;
-    left: 5%;
-    color: rgb(206, 206, 206);
-    background: rgba(112, 112, 112, 0.753);
+    top: 20px;
+    left: 40%;
+    color: rgb(43, 43, 43);
+    background: rgba(255, 255, 255, 0.849);
     padding: 10px;
     border-radius: 5px;
     font-size: 18px;
@@ -20,21 +21,40 @@ canvas { display: block; }
     pointer-events: none;
 }
 
-.landmark-info {
-    position: absolute;
-    pointer-events: auto;
-    display: none;
+.label {
+    background-color: white;
+    border: 1px solid black;
+    padding: 2px 5px;
+    border-radius: 3px;
+    font-size: 12px;
+    white-space: nowrap;
+    pointer-events: none; /* 防止鼠标事件影响 */
 }
 
-.landmark-info div {
+.popup {
+    display: none;
     position: absolute;
-    top: 10px;
-    left: 10px;
-    color: rgb(41, 41, 41);
-    background: rgba(255, 255, 255, 0.747);
-    padding: 5px;
-    border-radius: 3px;
-    font-size: 14px;
+    top: 20%;
+    left: 20%;
+    width: 300px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.close-popup {
+    margin-top: -10px;
+    background: #f44336;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.close-popup:hover {
+    background: #d32f2f;
 }
 
 .button-container {
