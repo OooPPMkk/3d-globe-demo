@@ -76,38 +76,60 @@ function updateLandmarkProperties(index, color, scale) {
 }
 
 addLandmark(
-    new THREE.Vector3(4.9, 1, 0), 
-    '一个住着精灵的小房子，位于非洲西北，在这里，精灵们与自然和谐共处，生活在一个充满魔力与爱的世界中。', 
+    new THREE.Vector3(5, 1, 0), 
+    '住着精灵的小房子，位于非洲西北，在这里，精灵们与自然和谐共处，生活在一个充满魔力与爱的世界中。', 
     'model/forest_house.glb', 
     0x00ff00, 
     0.2, 
-    '精灵的小房子', 
+    '精灵之家', 
     { x: -50, y: -20 } // 设置标签偏移
 );
 
 addLandmark(
     new THREE.Vector3(1, 5, 0), 
-    '一个温馨的小屋，位于北极附近，虽然寒冷，却充满了家的温暖与宁静。在这里可以享受静谧，与大自然亲密接触，感受宁静与美好。', 
+    '一个神奇的温馨小屋，位于北极附近，虽然寒冷，却充满了家的温暖与宁静。在这里可以享受静谧，与大自然亲密接触，感受宁静与美好。', 
     'model/tiny_house.glb', 
     0x0000ff, 
     0.15, 
-    '温馨的小屋', 
+    '温馨小屋', 
     { x: 0, y: -30 } // 设置标签偏移
 );
 
 addLandmark(
-    new THREE.Vector3(-5, 0, 0.7), 
-    '太平洋中央一座神秘的方尖碑,它的四面墙壁上布满了古老而复杂的符文和图案，闪烁着淡淡的蓝光，似乎在述说着一个尘封已久的传说。', 
+    new THREE.Vector3(-5.05, 0, 0.7), 
+    '太平洋中央一座神秘的方尖碑,它的四面墙壁上布满了古老而复杂的符文和图案，闪烁着淡淡的光辉，似乎在述说着一个尘封已久的传说。', 
     'model/stylized_egyptian_pillar.glb', 
     0xffff00, 
     0.25, 
-    '神秘的方尖碑', 
+    '神秘方尖碑', 
     { x: 10, y: -40 } // 设置标签偏移
 );
 
-updateLandmarkProperties(0, 0xff00ff, 0.2);
-updateLandmarkProperties(1, 0x00ffff, 0.2);
-updateLandmarkProperties(2, 0x00ffff, 0.2);
+addLandmark(
+    new THREE.Vector3(-1, 2.2, -4.5), 
+    '在中国云南省内，由外星科技造就的一座悬浮商店，引起了不小的轰动，全世界前来参观、购物的顾客络绎不绝。', 
+    'model/guest_house.glb', 
+    0xffff00, 
+    0.25, 
+    '反重力商店', 
+    { x: 10, y: -40 } // 设置标签偏移
+);
+
+addLandmark(
+    new THREE.Vector3(-1, 4, 3), 
+    '在一尊温柔的女性天使雕像，静静的站立在在美国中部一个隐秘角落，散发着宁静而祥和的气息，她不仅是一件艺术品，更是一种精神的象征。', 
+    'model/graveyard_angel_statue.glb', 
+    0xffff00, 
+    0.25, 
+    '静谧天使', 
+    { x: 10, y: -40 } // 设置标签偏移
+);
+
+updateLandmarkProperties(0, 0x00ffff, 0.15);
+updateLandmarkProperties(1, 0x00ffff, 0.15);
+updateLandmarkProperties(2, 0x00ffff, 0.15);
+updateLandmarkProperties(3, 0x00ffff, 0.15);
+updateLandmarkProperties(4, 0x00ffff, 0.15);
 
 // 初始化按钮位置
 function initButtonPositions() {
