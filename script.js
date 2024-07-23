@@ -77,8 +77,8 @@ function updateLandmarkProperties(index, color, scale) {
 
 addLandmark(
     new THREE.Vector3(5, 1, 0), 
-    '住着精灵的小房子，位于非洲西北，在这里，精灵们与自然和谐共处，生活在一个充满魔力与爱的世界中。', 
-    'model/forest_house.glb', 
+    '住着精灵的小房子，非洲西北的茂密森林深处，仿佛与自然融为一体。这是一个充满爱与和平的地方，仿佛童话中的仙境，让人流连忘返。', 
+    'model/forest_house.glb',
     0x00ff00, 
     0.2, 
     '精灵之家', 
@@ -107,7 +107,7 @@ addLandmark(
 
 addLandmark(
     new THREE.Vector3(-1, 2.2, -4.5), 
-    '在中国云南省内，由外星科技造就的一座悬浮商店，引起了不小的轰动，全世界前来参观、购物的顾客络绎不绝。', 
+    '在中国云南省的苍翠山脉之间，有一座外星科技造就的神秘悬浮商店，独特的外形和神奇的悬浮能力，吸引了无数探险者和游客前来一探究竟。', 
     'model/guest_house.glb', 
     0xffff00, 
     0.25, 
@@ -125,11 +125,23 @@ addLandmark(
     { x: 10, y: -40 } // 设置标签偏移
 );
 
+
+addLandmark(
+    new THREE.Vector3(-3.15, -2.4, -3.2), 
+    '澳大利亚沙漠的天空中，高悬着一座令人望而生畏的魔法浮空监狱，它展示魔法力量与技术的奇迹，象征着无尽的威严与神秘。', 
+    'model/cube_world_ethereal_prison.glb', 
+    0xffff00, 
+    0.25, 
+    '浮空监狱', 
+    { x: 10, y: -40 } // 设置标签偏移
+);
+
 updateLandmarkProperties(0, 0x00ffff, 0.15);
 updateLandmarkProperties(1, 0x00ffff, 0.15);
 updateLandmarkProperties(2, 0x00ffff, 0.15);
 updateLandmarkProperties(3, 0x00ffff, 0.15);
 updateLandmarkProperties(4, 0x00ffff, 0.15);
+updateLandmarkProperties(5, 0x00ffff, 0.15);
 
 // 初始化按钮位置
 function initButtonPositions() {
@@ -204,10 +216,11 @@ function updateLandmarkInfo(horizontalThreshold = 0.5, verticalThreshold = 0.5) 
 }
 
 // 修改显示弹出窗口的代码以确保模型正确显示
-function showPopup(info, modelPath) {
+function showPopup(info, modelPath,closeButtonPosition = { top: '100px', right: '10px' }) {
     const popup = document.getElementById('popup');
     const popupContent = document.getElementById('popup-content');
-    
+    const closeButton = document.getElementById('close-popup');
+
     // 清除之前的内容
     popupContent.innerHTML = '';
 
@@ -218,8 +231,11 @@ function showPopup(info, modelPath) {
     popupContent.appendChild(infoDiv);
 
     // 创建并添加3D模型的渲染器
-    const modelRenderer = new THREE.WebGLRenderer({ alpha: true });
+    const modelRenderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
     modelRenderer.setSize(300, 300); // 根据popup大小调整渲染器大小
+    modelRenderer.setClearColor(0x000000, 0.2); // 设置渲染器背景透明
+    modelRenderer.setPixelRatio(window.devicePixelRatio); // 设置像素比
+    modelRenderer.domElement.style.borderRadius = '10px'; // 可选：设置渲染器画布的圆角
     popupContent.appendChild(modelRenderer.domElement);
 
     // 创建弹出窗口的场景和相机
@@ -228,9 +244,9 @@ function showPopup(info, modelPath) {
     modelCamera.position.z = 2;
 
     // 添加光源到弹出窗口的场景
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5); // 环境光
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1.2); // 环境光
     modelScene.add(ambientLight);
-    
+
     const directionalLight = new THREE.DirectionalLight(0xffffff, 1); // 方向光
     directionalLight.position.set(1, 1, 1).normalize();
     modelScene.add(directionalLight);
@@ -238,19 +254,31 @@ function showPopup(info, modelPath) {
     // 加载并展示模型
     gltfLoader.load(modelPath, function (gltf) {
         const model = gltf.scene;
+        model.traverse(function (node) {
+            if (node.isMesh) {
+                node.material.side = THREE.FrontSide; // 确保只渲染前面，防止穿透现象
+                node.material.depthTest = true; // 启用深度测试
+                node.material.depthWrite = true; // 启用深度写入
+            }
+        });
         model.scale.set(1, 1, 1); // 设置模型大小，这里可以调整比例
         modelScene.add(model);
-
+    
         function renderModel() {
             requestAnimationFrame(renderModel);
-            model.rotation.y += 0.01; // 使模型旋转
+            model.rotation.y += 0.008; // 使模型旋转
             modelRenderer.render(modelScene, modelCamera);
         }
         renderModel();
     });
 
+    // 设置关闭按钮的位置
+    closeButton.style.setProperty('--close-button-top', closeButtonPosition.top);
+    closeButton.style.setProperty('--close-button-right', closeButtonPosition.right);
+
     popup.style.display = 'block';
 }
+
 
 // 隐藏弹出窗口
 function hidePopup() {

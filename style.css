@@ -4,7 +4,7 @@ canvas { display: block; }
 #info {
     position: absolute;
     top: 20px;
-    left: 42%;
+    left: 44%;
     color: rgb(248, 248, 248);
     background: rgba(46, 46, 46, 0.849);
     background-position: center;
@@ -45,11 +45,13 @@ canvas { display: block; }
 }
 
 .close-popup {
-    margin-top: -10px;
+    position: absolute;
+    top: var(--close-button-top, 10px); /* 使用自定义属性来控制位置 */
+    right: var(--close-button-right, 10px); /* 使用自定义属性来控制位置 */
     background: #f44336;
     color: white;
     border: none;
-    padding: 10px;
+    padding: 8px;
     border-radius: 5px;
     cursor: pointer;
 }
