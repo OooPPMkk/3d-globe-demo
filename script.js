@@ -216,7 +216,7 @@ function updateLandmarkInfo(horizontalThreshold = 0.5, verticalThreshold = 0.5) 
 }
 
 // 修改显示弹出窗口的代码以确保模型正确显示
-function showPopup(info, modelPath,closeButtonPosition = { top: '100px', right: '10px' }) {
+function showPopup(info, modelPath, closeButtonPosition = { top: '100px', right: '10px' }) {
     const popup = document.getElementById('popup');
     const popupContent = document.getElementById('popup-content');
     const closeButton = document.getElementById('close-popup');
